@@ -1,0 +1,37 @@
+# see: https://github.com/metabase/metabase/wiki/Metabase-Plugin-Manifest-Reference
+info:
+  name: Metabase Neo4j Driver
+  version: 0.0.1-SNAPSHOT
+  description: Allows Metabase to connect to Neo4j.
+driver:
+  name: neo4j
+  display-name: Neo4j
+  lazy-load: true
+  parent: sql-jdbc
+  connection-properties:
+    - merge:
+        - host
+        - default: localhost
+    - merge:
+        - port
+        - default: 7687
+    - merge:
+        - dbname
+        - default: neo4j
+    - merge:
+        - user
+        - default: neo4j
+    - merge:
+        - password
+        - default: default
+    - merge:
+        - additional-options
+        - name: jdbc-flags
+          display-name: JDBC connection options for Neo4j connection
+          placeholder: "?&LogLevel=6;StrictlyUseBoltScheme=false"
+  connection-properties-include-tunnel-config: false
+init:
+  - step: load-namespace
+    namespace: metabase.driver.neo4j
+  - step: register-jdbc-driver
+    class: com.simba.neo4j.jdbc42.Driver
