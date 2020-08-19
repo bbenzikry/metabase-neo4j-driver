@@ -1,6 +1,6 @@
 # Neo4j 4 Metabase driver
 
-Wraps the Neo4j BI connector to allow Metabase use.
+Simple wrapper of the Neo4j BI connector for metabase.
 
 ## Building the driver
 
@@ -21,7 +21,7 @@ lein install-for-building-drivers
 
 ```bash
 # cp the jar to the maven dir
-mkdir -p .m2/repository/neo4j/neo4j-bi-jdbc/1.0.0 && cp JAR_PATH .m2/repository/neo4j/neo4j-bi-jdbc/1.0.0/
+mkdir -p ~/.m2/repository/neo4j/neo4j-bi-jdbc/1.0.0 && cp JAR_PATH ~/.m2/repository/neo4j/neo4j-bi-jdbc/1.0.0/
 ```
 
 ### Build the driver
@@ -49,17 +49,53 @@ cd /path/to/metabase_source
 lein run
 ```
 
-## What this looks like
+## Working with a relational model on graphs
 
-![databases](screenshots/databases.png)
-![tables](screenshots/tables.png)
+The JDBC driver exposes schemas for **Relationships** and **Nodes**
 
-## Caveats 
+* Relationships
 
-This is a WIP implementation.
-It is not heavily tested and is not compatible with neo4j 3.5 ( even though the underlying driver is)
+  * The driver creates one table for each distinct combination of source label, relationship type, and target label.
+
+* Nodes
+  * The driver only creates tables for nodes that have labels.
+  * The driver creates one table for each distinct combination of node labels.
+  
+  Given
+  * Node1, with the label [Alphabet]
+  * Node2, with the label [Google]
+  * Node3, with the labels[Alphabet,Google]
+  
+  The following tables will be created:
+  * Alphabet
+  * Google
+  * Alphabet_Google
+
+* Naming
+Separators between node label names and relationship names is an underscore by default
+
+To change the Node name seperator, you can use the LabelSeparator JDBC property, or RelNodeSeperator for Relationship tables.
+
+JDBC properties can be added via the driver configuration as shown in the image below.
+
+> For an up to date list of allowed configuration values, please download the [JDBC driver](https://neo4j.com/bi-connector/)
+
+![configuration](screenshots/db.png)
+
+## Caveats
+
+**This is a WIP.**
+
+It is not heavily tested and is not compatible with neo4j 3.5 ( even though the underlying driver is )
 
 ## TODO
 
-* Support Cypher queries when BI connector matures
 * Testing
+* CI
+* Docker example
+* Edge properties
+
+## Future
+
+* Support Cypher queries as BI connector matures
+
