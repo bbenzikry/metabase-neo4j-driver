@@ -1,6 +1,6 @@
-# Neo4j 4 Metabase driver
+# Neo4j Metabase driver
 
-Simple wrapper of the Neo4j BI connector for metabase.
+Simple wrapper around the Neo4j BI connector for metabase.
 
 ## Building the driver
 
