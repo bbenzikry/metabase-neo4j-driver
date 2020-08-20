@@ -1,27 +1,13 @@
 (ns metabase.driver.neo4j.execute
-  (:require [clojure.core.async :as a]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]
-            [java-time :as t]
-            [metabase
-             [driver :as driver]
-             [util :as u]]
-            [metabase.driver.sql-jdbc
-             [execute :as sql-jdbc.execute]
-             [connection :as sql-jdbc.conn]
-             [sync :as sql-jdbc.sync]]
-            [metabase.mbql.util :as mbql.u]
-            [metabase.query-processor
-             [context :as context]
-             [interface :as qp.i]
-             [store :as qp.store]
-             [timezone :as qp.timezone]
-             [util :as qputil]]
-            [metabase.util.i18n :refer [trs]]
-            [potemkin :as p])
-  (:import [java.sql Connection JDBCType PreparedStatement ResultSet ResultSetMetaData Types]
-           [java.time Instant LocalDate LocalDateTime LocalTime OffsetDateTime OffsetTime ZonedDateTime]
-           javax.sql.DataSource))
+  (:require
+   [metabase.driver.sql-jdbc
+    [execute :as sql-jdbc.execute]]
+   [metabase.mbql.util :as mbql.u]
+   [metabase.query-processor
+    [context :as context]
+    [interface :as qp.i]
+    [store :as qp.store]
+    [timezone :as qp.timezone]]))
 
 
 ; We want to do this in order to avoid remarks and commenting which affect the simba JDBC driver
