@@ -1,6 +1,71 @@
 # Neo4j Metabase driver
 
+![Metabase v0.36.2](https://img.shields.io/badge/metabase-v0.36.2-purple?)
+![Neo4j 4.0.0+](https://img.shields.io/badge/Neo4j-4.0.0+-blue?)
+[![Latest Release](https://img.shields.io/github/v/release/bbenzikry/metabase-neo4j-driver.svg?label=latest%20release&include_prereleases)](https://github.com/bbenzikry/metabase-neo4j-driver/releases)
+[![GitHub license](https://img.shields.io/github/license/bbenzikry/metabase-neo4j-driver)](https://raw.githubusercontent.com/bbenzikry/metabase-neo4j-driver/master/LICENSE)
+
 Simple wrapper around the Neo4j BI connector for metabase.
+
+*Note:* This project is a WIP 🚧
+
+## Installation
+
+### Run with Docker
+
+```bash
+git clone https://github.com/bbenzikry/metabase-neo4j-driver.git
+cd metabase-neo4j-driver
+docker build -t metabase/neo4j .
+docker run --name metabase-neo4j -p 3000:3000 metabase/neo4j
+```
+
+### JAR installation
+
+- Download the latest metabase version from [here](https://metabase.com/start/jar.html)
+- Download the latest neo4j.metabase-driver.jar jar from the [releases](https://github.com/bbenzikry/metabase-neo4j-driver/releases) page
+- Create a metabase folder and place your metabase.jar
+- Copy neo4j.metabase-driver.jar to the ``plugins/`` folder
+  ```bash
+  .
+  ├── metabase.jar
+  └── plugins
+      └── neo4j.metabase-driver.jar
+  ```
+- Run ```java -jar metabase.jar```
+
+## Working with a relational model on graphs
+
+The JDBC driver exposes schemas for **Relationships** and **Nodes**
+
+* Relationships
+
+  * The driver creates one table for each distinct combination of source label, relationship type, and target label.
+
+* Nodes
+  * The driver only creates tables for nodes that have labels.
+  * The driver creates one table for each distinct combination of node labels.
+  
+  Given
+  * Node1, with the label [Alphabet]
+  * Node2, with the label [Google]
+  * Node3, with the labels[Alphabet,Google]
+  
+  The following tables will be created:
+  * Alphabet
+  * Google
+  * Alphabet_Google
+
+* Naming
+Separators between node label names and relationship names is an underscore by default
+
+To change the Node name seperator, you can use the LabelSeparator JDBC property, or RelNodeSeperator for Relationship tables.
+
+JDBC properties can be added via the driver configuration as shown in the image below.
+
+> For an up to date list of allowed configuration values, please download the [JDBC driver](https://neo4j.com/bi-connector/)
+
+![configuration](screenshots/db.png)
 
 ## Building the driver
 
@@ -48,39 +113,6 @@ cp target/uberjar/neo4j.metabase-driver.jar /path/to/metabase_source/plugins/
 cd /path/to/metabase_source
 lein run
 ```
-
-## Working with a relational model on graphs
-
-The JDBC driver exposes schemas for **Relationships** and **Nodes**
-
-* Relationships
-
-  * The driver creates one table for each distinct combination of source label, relationship type, and target label.
-
-* Nodes
-  * The driver only creates tables for nodes that have labels.
-  * The driver creates one table for each distinct combination of node labels.
-  
-  Given
-  * Node1, with the label [Alphabet]
-  * Node2, with the label [Google]
-  * Node3, with the labels[Alphabet,Google]
-  
-  The following tables will be created:
-  * Alphabet
-  * Google
-  * Alphabet_Google
-
-* Naming
-Separators between node label names and relationship names is an underscore by default
-
-To change the Node name seperator, you can use the LabelSeparator JDBC property, or RelNodeSeperator for Relationship tables.
-
-JDBC properties can be added via the driver configuration as shown in the image below.
-
-> For an up to date list of allowed configuration values, please download the [JDBC driver](https://neo4j.com/bi-connector/)
-
-![configuration](screenshots/db.png)
 
 ## Caveats
 
