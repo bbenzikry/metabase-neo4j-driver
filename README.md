@@ -99,3 +99,7 @@ It is not heavily tested and is not compatible with neo4j 3.5 ( even though the 
 
 * Support Cypher extended queries as BI connector matures
 * Cypher and graph viz for Metabase ( directly or via ad-hoc JDBC driver )
+
+## Known issues
+
+* Initial DB creation and/or sync may time out. You can configure a higher timeout value with the ``MB_DB_CONNECTION_TIMEOUT_MS`` environment variable.
