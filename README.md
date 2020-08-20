@@ -97,5 +97,6 @@ It is not heavily tested and is not compatible with neo4j 3.5 ( even though the 
 
 ## Future
 
-* Support Cypher queries as BI connector matures
+* Support Cypher extended queries as BI connector matures
+* Cypher and graph viz for Metabase ( directly or via ad-hoc JDBC driver )
 

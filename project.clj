@@ -1,4 +1,4 @@
-(defproject metabase/neo4j-driver "1.0.0"
+(defproject metabase/neo4j-driver "0.0.1-SNAPSHOT-neo4j-connector-1.0.0"
   :min-lein-version "2.5.0"
 
   ; :repositories [["bintray" "https://dl.bintray.com/meetr/thirdparty"]]
