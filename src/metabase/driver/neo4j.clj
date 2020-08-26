@@ -110,8 +110,9 @@
 (defmethod sql.qp/date [:neo4j :month-of-year]   [_ _ expr] (hsql/call :month expr))
 (defmethod sql.qp/date [:neo4j :quarter-of-year] [_ _ expr] (hx/quarter expr))
 (defmethod sql.qp/date [:neo4j :year]            [_ _ expr] (hsql/call :year expr))
-
-
+(defmethod sql.qp/unix-timestamp->honeysql [:neo4j :seconds]
+  [_ _ expr]
+  (hx/* expr 1000))
 
 ; ;;; 
 ; ;;; |                                         metabase.driver.sql-jdbc impls                                         |
@@ -135,7 +136,6 @@
 (defmethod driver/describe-table :neo4j
   [driver database table]
   (sql-jdbc.sync/describe-table driver database table))
-
 
 (defmethod driver/execute-reducible-query :neo4j
   [driver query chans respond]
