@@ -1,7 +1,7 @@
 # see: https://github.com/metabase/metabase/wiki/Metabase-Plugin-Manifest-Reference
 info:
   name: Metabase Neo4j Driver
-  version: 0.0.1-SNAPSHOT
+  version: 0.0.2-SNAPSHOT
   description: Allows Metabase to connect to Neo4j.
 driver:
   name: neo4j
