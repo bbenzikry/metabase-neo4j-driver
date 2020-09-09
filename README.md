@@ -5,7 +5,15 @@
 [![Latest Release](https://img.shields.io/github/v/release/bbenzikry/metabase-neo4j-driver.svg?label=latest%20release&include_prereleases)](https://github.com/bbenzikry/metabase-neo4j-driver/releases)
 [![GitHub license](https://img.shields.io/github/license/bbenzikry/metabase-neo4j-driver)](https://raw.githubusercontent.com/bbenzikry/metabase-neo4j-driver/master/LICENSE)
 
-Simple wrapper around the Neo4j BI connector for metabase.
+**SQL** and **Cypher** support for Metabase
+<!-- markdownlint-disable MD033 -->
+<center>
+<img width="125" height="125" src="https://user-images.githubusercontent.com/1993348/92579335-bc372180-f295-11ea-9620-847a74789193.png" />
+<img width="100" src="https://user-images.githubusercontent.com/1993348/92579314-b7726d80-f295-11ea-9147-9a9b06c8e1b6.png" />
+<img width="135" height="100" src="https://user-images.githubusercontent.com/1993348/92579340-be00e500-f295-11ea-892e-5a10cd8f31c7.png" />
+<img width="100" src="https://user-images.githubusercontent.com/1993348/92579326-ba6d5e00-f295-11ea-8846-bad272f11760.png">
+<img width="150" height="" src="https://media2.giphy.com/media/xT0xeJpnrWC4XWblEk/200.gif">
+</center>
 
 _Note:_ This project is a WIP 🚧
 
@@ -23,7 +31,7 @@ docker run --name metabase-neo4j -p 3000:3000 metabase/neo4j
 ### JAR installation
 
 - Download the latest metabase version from [here](https://metabase.com/start/jar.html)
-- Download the latest neo4j.metabase-driver.jar jar from the [releases](https://github.com/bbenzikry/metabase-neo4j-driver/releases) page
+- Download the latest ``neo4j.metabase-driver.jar`` from the [releases](https://github.com/bbenzikry/metabase-neo4j-driver/releases) page
 - Create a metabase folder and place your metabase.jar
 - Copy neo4j.metabase-driver.jar to the `plugins/` folder
   ```bash
@@ -33,6 +41,13 @@ docker run --name metabase-neo4j -p 3000:3000 metabase/neo4j
       └── neo4j.metabase-driver.jar
   ```
 - Run `java -jar metabase.jar`
+
+
+## Using Cypher 
+
+- Cypher is currently only implemented for explicit querying
+- All cypher queries must return column based results ( aggregation results or column values )
+![cypher_use](./screenshots/cypher.png)
 
 ## Working with a relational model on graphs
 
@@ -121,20 +136,27 @@ lein run
 
 **This is a WIP.**
 
-It is not heavily tested and is not compatible with neo4j 3.5 ( even though the underlying driver is )
+It is not heavily tested and is not compatible with neo4j 3.5 ( even though the underlying JDBC driver is )
 
 ## TODO
 
 - ~~Edge properties~~
 - ~~Timestamp casting support~~
+- ~~Cypher support~~
 - Testing
+
 - CI
 
 ## Future
 
-- Support Cypher extended queries as BI connector matures
-- Cypher and graph viz for Metabase ( directly or via ad-hoc JDBC driver )
+- Support complex results in cypher ( e.g. non relational projections )
+- Graph viz support
 
 ## Known issues
 
 - Initial DB creation and/or sync may time out. You can configure a higher timeout value with the `MB_DB_CONNECTION_TIMEOUT_MS` environment variable.
+
+
+<div align="center">
+<sub><sup>Logos and images used in this document are licensed to their original creators and do not indicate any affiliation with this project</sup></sub>
+</div>
