@@ -7,13 +7,13 @@
 
 **SQL** and **Cypher** support for Metabase
 <!-- markdownlint-disable MD033 -->
-<center>
+<div align="center">
 <img width="125" height="125" src="https://user-images.githubusercontent.com/1993348/92579335-bc372180-f295-11ea-9620-847a74789193.png" />
 <img width="100" src="https://user-images.githubusercontent.com/1993348/92579314-b7726d80-f295-11ea-9147-9a9b06c8e1b6.png" />
 <img width="135" height="100" src="https://user-images.githubusercontent.com/1993348/92579340-be00e500-f295-11ea-892e-5a10cd8f31c7.png" />
 <img width="100" src="https://user-images.githubusercontent.com/1993348/92579326-ba6d5e00-f295-11ea-8846-bad272f11760.png">
-<img width="150" height="" src="https://media2.giphy.com/media/xT0xeJpnrWC4XWblEk/200.gif">
-</center>
+<img width="150" height="" src="https://user-images.githubusercontent.com/1993348/92581303-2cdf3d80-f298-11ea-8f08-4a169a01efba.gif">
+</div>
 
 _Note:_ This project is a WIP 🚧
 
