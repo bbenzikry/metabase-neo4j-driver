@@ -1,11 +1,9 @@
-(defproject metabase/neo4j-driver "0.0.2-SNAPSHOT-neo4j-connector-1.0.0"
+(defproject metabase/neo4j-driver "0.0.3-SNAPSHOT-neo4j-connector-1.0.0"
   :min-lein-version "2.5.0"
-
-  ; :repositories [["bintray" "https://dl.bintray.com/meetr/thirdparty"]]
-
-  :dependencies
-  [[neo4j/neo4j-bi-jdbc "1.0.0"]]
-
+  ; git repo support
+  :plugins [[lein-tools-deps "0.4.5"]]
+  :middleware [lein-tools-deps.plugin/resolve-dependencies-with-deps-edn]
+  :lein-tools-deps/config {:config-files [:install :user :project]}
   :aliases
   {"test"       ["with-profile" "+unit_tests" "test"]}
 
@@ -13,7 +11,6 @@
   {:provided
    {:dependencies
     [[metabase-core "1.0.0-SNAPSHOT"]]}
-
    :uberjar
    {:auto-clean    true
     :aot           :all

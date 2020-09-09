@@ -1,7 +1,10 @@
 (ns metabase.driver.neo4j
   "Metabase Neo4j Driver."
+  (:import  [org.neo4j.cypher.internal.parser CypherParser]
+            [org.neo4j.cypher.internal.util OpenCypherExceptionFactory])
   (:require [clojure
              [set :as set]]
+            [clojure.tools.logging :as log]
             [honeysql.core :as hsql]
             [metabase.util
              [honeysql-extensions :as hx]]
@@ -20,6 +23,7 @@
 (defn- make-subname [host port db jdbc-flags]
   (str "//" host ":" port "/" db jdbc-flags))
 
+; Support multiple :classname
 (defn neo4j
   "Create a Clojure JDBC database specification for Neo4j."
   [{:keys [host port db jdbc-flags]
@@ -137,6 +141,21 @@
   [driver database table]
   (sql-jdbc.sync/describe-table driver database table))
 
+
+
+;  |                                          Execution + Cypher support                                            |
+;  | TODO: Connection pooling                                                                                       |
+;  +----------------------------------------------------------------------------------------------------------------+
+
+
+(def ^:private cypher-parser (CypherParser.))
+(def ^:private cypher-exception-factory (OpenCypherExceptionFactory. nil))
+(defn- cypher? [{{query :query} :native}]
+  (try
+    (log/info "Received neo4j query. Checking if cypher ❓")
+    (.parse cypher-parser query cypher-exception-factory nil)
+    true (catch Throwable ex (log/info ex) false)))
+
 (defmethod driver/execute-reducible-query :neo4j
   [driver query chans respond]
-  (neo4j.execute/execute-reducible-query driver query chans respond))
+  (if (cypher? query) (neo4j.execute/execute-reducible-query->cypher driver query chans respond) (neo4j.execute/execute-reducible-query driver query chans respond)))
