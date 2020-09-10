@@ -5,7 +5,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/bbenzikry/metabase-neo4j-driver.svg?label=latest%20release&include_prereleases)](https://github.com/bbenzikry/metabase-neo4j-driver/releases)
 [![GitHub license](https://img.shields.io/github/license/bbenzikry/metabase-neo4j-driver)](https://raw.githubusercontent.com/bbenzikry/metabase-neo4j-driver/master/LICENSE)
 
-**SQL** and **Cypher** support for Metabase
+**SQL** and **Cypher** support for Neo4j on Metabase
 <!-- markdownlint-disable MD033 -->
 <div align="center">
 <img width="125" height="125" src="https://user-images.githubusercontent.com/1993348/92579335-bc372180-f295-11ea-9620-847a74789193.png" />
