@@ -25,8 +25,7 @@ driver:
         - password
         - default: default
     - name: protocol
-      display-name: Protocol
-      description: One of bolt,bolt+s,bolt+ssc,neo4j,neo4j+s,neo4j+ssc
+      display-name: Protocol ( bolt / bolt+s / bolt+ssc / neo4j / neo4j+s / neo4j+ssc )
       default: bolt
     - merge:
         - additional-options
