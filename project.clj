@@ -1,4 +1,4 @@
-(defproject metabase/neo4j-driver "0.0.4-SNAPSHOT-neo4j-connector-1.0.0"
+(defproject metabase/neo4j-driver "0.0.5-SNAPSHOT-neo4j-connector-1.0.0"
   :min-lein-version "2.5.0"
   ; git repo support
   :plugins [[lein-tools-deps "0.4.5"]]

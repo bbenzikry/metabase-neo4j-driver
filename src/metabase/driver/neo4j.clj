@@ -19,7 +19,7 @@
 
 (driver/register! :neo4j, :parent :sql-jdbc)
 (defmethod driver/display-name :neo4j [_] "Neo4j 4")
-
+(def accepted-neo-protocols (sorted-set "bolt" "bolt+s" "bolt+ssc" "neo4j" "neo4j+s" "neo4j+ssc"))
 (defn- make-subname [host port db jdbc-flags]
   (str "//" host ":" port "/" db jdbc-flags))
 
@@ -128,6 +128,8 @@
 
 (defmethod sql-jdbc.conn/connection-details->spec :neo4j
   [_ details]
+  (when-not (contains? accepted-neo-protocols (:protocol details))
+    (throw (Exception. (str "Protocol must be one of " (clojure.string/join ", " accepted-neo-protocols)))))
   (-> details
       (update :port (fn [port]
                       (if (string? port)
@@ -154,7 +156,7 @@
   (try
     (log/info "Received neo4j query. Checking if cypher ❓")
     (.parse cypher-parser query cypher-exception-factory nil)
-    true (catch Throwable ex (log/info ex) false)))
+    true (catch Throwable ex (log/debug ex) false)))
 
 (defmethod driver/execute-reducible-query :neo4j
   [driver query chans respond]

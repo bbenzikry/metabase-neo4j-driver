@@ -14,9 +14,8 @@
   nil)
 
 (defn get-neo-connection
-  [{host :host port :port user :user password :password dbname :dbname}]
-  (let [base (str "bolt://" host ":" port)
-        url (if dbname (str base "/" dbname) base)]
+  [{host :host port :port user :user password :password protocol :protocol}]
+  (let [url (str protocol "://" host ":" port)]
     (if password (neo4j/connect url user password) (neo4j/connect url user))))
 
 (defn -with-neo-connection
