@@ -6,6 +6,7 @@
 [![GitHub license](https://img.shields.io/github/license/bbenzikry/metabase-neo4j-driver)](https://raw.githubusercontent.com/bbenzikry/metabase-neo4j-driver/master/LICENSE)
 
 **SQL** and **Cypher** support for Neo4j on Metabase
+
 <!-- markdownlint-disable MD033 -->
 <div align="center">
 <img width="125" height="125" src="https://user-images.githubusercontent.com/1993348/92579335-bc372180-f295-11ea-9620-847a74789193.png" />
@@ -31,7 +32,7 @@ docker run --name metabase-neo4j -p 3000:3000 metabase/neo4j
 ### JAR installation
 
 - Download the latest metabase version from [here](https://metabase.com/start/jar.html)
-- Download the latest ``neo4j.metabase-driver.jar`` from the [releases](https://github.com/bbenzikry/metabase-neo4j-driver/releases) page
+- Download the latest `neo4j.metabase-driver.jar` from the [releases](https://github.com/bbenzikry/metabase-neo4j-driver/releases) page
 - Create a metabase folder and place your metabase.jar
 - Copy neo4j.metabase-driver.jar to the `plugins/` folder
   ```bash
@@ -42,12 +43,11 @@ docker run --name metabase-neo4j -p 3000:3000 metabase/neo4j
   ```
 - Run `java -jar metabase.jar`
 
-
-## Using Cypher 
+## Using Cypher
 
 - Cypher is currently only implemented for explicit querying
 - All cypher queries must return column based results ( aggregation results or column values )
-![cypher_use](./screenshots/cypher.png)
+  ![cypher_use](./screenshots/cypher.png)
 
 ## Working with a relational model on graphs
 
@@ -143,6 +143,8 @@ It is not heavily tested and is not compatible with neo4j 3.5 ( even though the 
 - ~~Edge properties~~
 - ~~Timestamp casting support~~
 - ~~Cypher support~~
+- ~~Multiple database support~~
+- ~~Metabase variable substitution~~ 
 - Testing
 
 - CI
@@ -155,7 +157,6 @@ It is not heavily tested and is not compatible with neo4j 3.5 ( even though the 
 ## Known issues
 
 - Initial DB creation and/or sync may time out. You can configure a higher timeout value with the `MB_DB_CONNECTION_TIMEOUT_MS` environment variable.
-
 
 <div align="center">
 <sub><sup>Logos and images used in this document are licensed to their original creators and do not indicate any affiliation with this project</sup></sub>

@@ -6,7 +6,7 @@
     :refer [with-neo-connection]]
    [neo4clj.client :as neo4j]
    [clojure.core.async :as a]
-   [clojure.tools.logging :as log]
+  ;;  [clojure.tools.logging :as log]
    [metabase.driver.sql-jdbc
     [execute :as sql-jdbc.execute]]
    [metabase.mbql.util :as mbql.u]
@@ -44,11 +44,10 @@
 
 (defn execute-reducible-query->cypher
   "Process and run a native cypher query."
-  [_ {{query :query} :native} context respond]
-  (log/info "Executing reducible query for cypher")
+  [_ {{query :query params :cypher-params} :native} context respond]
   (with-neo-connection [^Driver connection (:details (qp.store/database))]
     (let [dbname (:dbname (:details (qp.store/database)))
-          results (volatile! (neo4j/execute! connection dbname query))
+          results (volatile! (neo4j/execute! connection dbname query params))
           nonseq-val (volatile! false)
           columns (get-cypher-columns @results)
           row-thunk #(if-not (seq? @results) ((if-not @nonseq-val (vreset! nonseq-val true) @results) nil)

@@ -2,6 +2,7 @@
   (:import [org.neo4j.driver
             Driver])
   (:require
+   [clojure.string :as s]
    [neo4clj.client :as neo4j]
    [clojure.tools.logging :as log]
    [metabase.util
@@ -42,3 +43,15 @@
      (if *neo-connection*
        (f# *neo-connection*)
        (-with-neo-connection f# ~details))))
+
+(defn replace-cypher-params
+  "Replaces MBQL template params with neo4j $ cypher params
+   This is currently a really dumb replace implementation and should probably iterate over the parameters as returned from 
+   `map-cypher-params`"
+  [{q :query, :as query}]
+  (assoc query :query (s/replace (s/replace q "{{" "$") "}}" "")))
+
+(defn map-cypher-params
+  "Maps native parameters in a metabase query to neo4j driver parameters"
+  [params]
+  (into {} (map #(hash-map (second (second (% :target))) (% :value))) params))

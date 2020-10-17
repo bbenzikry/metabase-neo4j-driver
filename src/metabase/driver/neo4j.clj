@@ -11,6 +11,8 @@
             [metabase.driver :as driver]
             [metabase.driver.sql.query-processor :as sql.qp]
             [metabase.driver.neo4j
+            ;;  [query-processor :as qp]
+             [util :as neo4j.util]
              [execute :as neo4j.execute]]
             [metabase.driver.sql-jdbc
              [common :as sql-jdbc.common]
@@ -118,6 +120,11 @@
   [_ _ expr]
   (hx/* expr 1000))
 
+
+; ;;; metabase.driver features
+(doseq [feature [:native-parameters]]
+  (defmethod driver/supports? [:neo4j feature] [_ _] true))
+
 ; ;;; 
 ; ;;; |                                         metabase.driver.sql-jdbc impls                                         |
 ; ;;; +----------------------------------------------------------------------------------------------------------------+
@@ -139,25 +146,32 @@
       neo4j
       (sql-jdbc.common/handle-additional-options details)))
 
-(defmethod driver/describe-table :neo4j
-  [driver database table]
-  (sql-jdbc.sync/describe-table driver database table))
-
-
 
 ;  |                                          Execution + Cypher support                                            |
-;  | TODO: Connection pooling                                                                                       |
 ;  +----------------------------------------------------------------------------------------------------------------+
 
 
 (def ^:private cypher-parser (CypherParser.))
 (def ^:private cypher-exception-factory (OpenCypherExceptionFactory. nil))
-(defn- cypher? [{{query :query} :native}]
+(defn- cypher? [query]
   (try
     (log/info "Received neo4j query. Checking if cypher ❓")
     (.parse cypher-parser query cypher-exception-factory nil)
     true (catch Throwable ex (log/debug ex) false)))
 
+(defmethod driver/describe-table :neo4j
+  [driver database table]
+  (sql-jdbc.sync/describe-table driver database table))
+
+(defmethod driver/substitute-native-parameters :neo4j
+  [_ inner-query]
+  (let [cypher-query (neo4j.util/replace-cypher-params inner-query)]
+    (if
+     (cypher? (:query cypher-query))
+      (assoc cypher-query :cypher true :cypher-params (neo4j.util/map-cypher-params (:parameters inner-query)))
+      (driver/substitute-native-parameters :sql inner-query))))
+
 (defmethod driver/execute-reducible-query :neo4j
   [driver query chans respond]
-  (if (cypher? query) (neo4j.execute/execute-reducible-query->cypher driver query chans respond) (neo4j.execute/execute-reducible-query driver query chans respond)))
+  (let [is-cypher (get-in query [:native :cypher])]
+    (if is-cypher (neo4j.execute/execute-reducible-query->cypher driver query chans respond) (neo4j.execute/execute-reducible-query driver query chans respond))))
