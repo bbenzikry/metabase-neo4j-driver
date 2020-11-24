@@ -1,5 +1,5 @@
 FROM metabase/metabase:v0.36.2
 
 ADD --chown=2000:2000 \
-  https://github.com/bbenzikry/metabase-neo4j-driver/releases/download/v0.0.6/neo4j.metabase-driver.jar \
+  https://github.com/bbenzikry/metabase-neo4j-driver/releases/download/v0.0.7/neo4j.metabase-driver.jar \
   /plugins/neo4j.neo4j-driver.jar

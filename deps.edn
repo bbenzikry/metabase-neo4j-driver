@@ -1,3 +1,3 @@
-{:deps {bbenzikry/neo4clj {:git/url "https://github.com/bbenzikry/neo4clj" :sha "6b0f55cd37fd5e11f08288641da820b0f9e4ca21"}
+{:deps {bbenzikry/neo4clj {:git/url "https://github.com/bbenzikry/neo4clj" :sha "ebbe1980f965e37880142502701491049b33f159"}
         neo4j/neo4j-bi-jdbc {:mvn/version "1.0.0"}
         org.neo4j/neo4j-cypher {:mvn/version "4.1.1"}}}

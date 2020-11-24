@@ -16,8 +16,6 @@
 <img width="150" height="" src="https://user-images.githubusercontent.com/1993348/92581303-2cdf3d80-f298-11ea-8f08-4a169a01efba.gif">
 </div>
 
-_Note:_ This project is a WIP 🚧
-
 ## Installation
 
 ### Run with Docker
