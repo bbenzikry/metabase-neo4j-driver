@@ -16,6 +16,11 @@
 <img width="150" height="" src="https://user-images.githubusercontent.com/1993348/92581303-2cdf3d80-f298-11ea-8f08-4a169a01efba.gif">
 </div>
 
+## Neo4j Prerequisites
+- Make sure your neo4j instance / cluster has [APOC](https://github.com/neo4j-contrib/neo4j-apoc-procedures) enabled.
+> Without APOC, the underlying BI connector will not be usable. 
+  For more information on the permission set required, download the [BI connector docs](https://neo4j.com/bi-connector/)
+
 ## Installation
 
 ### Run with Docker
@@ -156,6 +161,12 @@ It is not heavily tested and is not compatible with neo4j 3.5 ( even though the 
 
 - Initial DB creation and/or sync may time out. You can configure a higher timeout value with the `MB_DB_CONNECTION_TIMEOUT_MS` environment variable.
 
+- In a standalone neo4j installation, if you encounter the error below, use ``StrictlyUseBoltScheme=true`` in the JDBC options ( see: [#12](https://github.com/bbenzikry/metabase-neo4j-driver/issues/12)
+> \[Simba\] \[Neo4jJDBCDriver]\(100041) An error has occurred during data source connection: Failed to obtain connection towards READ server
+
+
 <div align="center">
 <sub><sup>Logos and images used in this document are licensed to their original creators and do not indicate any affiliation with this project</sup></sub>
 </div>
+
+
