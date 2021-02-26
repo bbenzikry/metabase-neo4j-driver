@@ -161,7 +161,7 @@ It is not heavily tested and is not compatible with neo4j 3.5 ( even though the 
 
 - Initial DB creation and/or sync may time out. You can configure a higher timeout value with the `MB_DB_CONNECTION_TIMEOUT_MS` environment variable.
 
-- In a standalone neo4j installation, if you encounter the error below, use ``StrictlyUseBoltScheme=true`` in the JDBC options ( see: [#12](https://github.com/bbenzikry/metabase-neo4j-driver/issues/12)
+- In a standalone neo4j installation, if you encounter the error below, use ``StrictlyUseBoltScheme=true`` in the JDBC options ( see: [#12](https://github.com/bbenzikry/metabase-neo4j-driver/issues/12) )
 > \[Simba\] \[Neo4jJDBCDriver]\(100041) An error has occurred during data source connection: Failed to obtain connection towards READ server
 
 
